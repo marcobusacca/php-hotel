@@ -2,6 +2,35 @@
 <?php
     // IMPORTO "ARRAY.PHP"
     require __DIR__."/partials/array.php";
+
+    // CONTROLLO CHE I VALORI DI GET NON SIANO Null
+    if (isset($_GET['parking'])){
+
+        // RECUPERO IL FILTRAGGIO SCELTO DALL'UTENTE
+        $filter = $_GET['parking'];
+        
+        // CONTROLLO SE L'UTENTE HA SCELTO DI MOSTRARE A SCHERMO SOLO GLI HOTEL CON IL PARCHEGGIO DISPONIBILE
+        if ($filter === "1"){
+
+            // CREO UN ARRAY DOVE INSERIRE I FILTRAGGI
+            $filteredArray = [];
+
+            // CREO UN CICLO FOR_EACH CHE INSERISCE DENTRO FILTERED_ARRAY SOLTANTO GLI HOTEL CON IL PARCHEGGIO DISPONIBILE
+            foreach($hotels as $hotel){
+
+                // CONTROLLO SE L'HOTEL HA IL VALORE PARKING UGUALE A TRUE
+                if($hotel['parking']){
+
+                    // INSERISCO DENTRO L'ARRAY FILTRATO, L'ARRAY ASSOCIATIVO DELL'HOTEL
+                    $filteredArray[] = $hotel;
+                }
+            }
+            
+            // SOVRASCRIVO L'ARRAY HOTELS CON IL CONTENUTO DEL FILTERED_ARRAY
+            $hotels = $filteredArray;
+        }
+
+    }
 ?>
 
 <!-- TEMPLATE HTML -->
@@ -22,6 +51,19 @@
             <div class="container">
                 <!-- Main Row -->
                 <div class="row">
+                    <!-- Form Col -->
+                    <div class="col-12 mt-5">
+                        <!-- Form -->
+                        <form action="index.php" method="GET" class="text-center">
+                            <!-- Select Parking -->
+                            <select name="parking" class="form-select mb-5">
+                                <option value="0">Tutti gli hotel</option>
+                                <option value="1">Hotel con parcheggio disponibile</option>
+                            </select>
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Ricerca</button>
+                        </form>
+                    </div>
                     <!-- Hotels Col -->
                     <div class="col-12 my-5">
                         <!-- Hotels Table -->
