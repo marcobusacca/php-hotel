@@ -56,7 +56,34 @@
             <div class="container">
                 <!-- Main Row -->
                 <div class="row">
-
+                    <?php foreach($hotels as $hotel){ ?>
+                        <!-- Hotels Col -->
+                        <div class="col-12">
+                            <!-- Hotels Table -->
+                            <table>
+                                <!-- Table Head -->
+                                <thead>
+                                    <tr>
+                                        <?php foreach($hotel as $key => $data) {?>
+                                            <th>
+                                                <?php echo $key ?>
+                                            </th>
+                                        <?php } ?>
+                                    </tr>
+                                </thead>
+                                <!-- Table Body -->
+                                <tbody>
+                                    <tr>
+                                        <?php foreach($hotel as $data) {?>
+                                            <td>
+                                                <?php echo $data ?>
+                                            </td>
+                                        <?php } ?>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </main>
