@@ -61,7 +61,7 @@
                     <!-- Hotels Col -->
                     <div class="col-12 my-5">
                         <!-- Hotels Table -->
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-light table-bordered table-hover">
                             <!-- Table Head -->
                             <thead>
                                 <tr>
