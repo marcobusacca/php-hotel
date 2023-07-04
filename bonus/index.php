@@ -100,44 +100,48 @@
                             <button type="submit" class="btn btn-primary">Ricerca</button>
                         </form>
                     </div>
-                    <!-- Hotels Col -->
-                    <div class="col-12 my-5">
-                        <!-- Hotels Table -->
-                        <table class="table table-light table-bordered table-hover">
-                            <!-- Table Head -->
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Descrizione</th>
-                                    <th>Parcheggio</th>
-                                    <th>Voto</th>
-                                    <th>Distanza dal centro</th>
-                                </tr>
-                            </thead>
-                            <!-- Table Body -->
-                            <tbody>
-                                <?php foreach($hotels as $hotel) {?>
+                    <?php if(count($hotels) !== 0) { ?>
+                        <!-- Hotels Col -->
+                        <div class="col-12 my-5">
+                            <!-- Hotels Table -->
+                            <table class="table table-light table-bordered table-hover">
+                                <!-- Table Head -->
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <?php echo $hotel['name'] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $hotel['description'] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo ($hotel['parking']) ? 'Disponibile' : 'Non disponibile' ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $hotel['vote'] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $hotel['distance_to_center']." km " ?>
-                                        </td>
+                                        <th>Nome</th>
+                                        <th>Descrizione</th>
+                                        <th>Parcheggio</th>
+                                        <th>Voto</th>
+                                        <th>Distanza dal centro</th>
                                     </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <!-- Table Body -->
+                                <tbody>
+                                    <?php foreach($hotels as $hotel) {?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $hotel['name'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $hotel['description'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo ($hotel['parking']) ? 'Disponibile' : 'Non disponibile' ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $hotel['vote'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $hotel['distance_to_center']." km " ?>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php } else { ?>
+                        <h1 class="text-center my-5">Nessun hotel trovato</h1>
+                    <?php } ?>
                 </div>
             </div>
         </main>
