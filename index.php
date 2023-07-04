@@ -59,9 +59,9 @@
                 <!-- Main Row -->
                 <div class="row">
                     <!-- Hotels Col -->
-                    <div class="col-12">
+                    <div class="col-12 my-5">
                         <!-- Hotels Table -->
-                        <table class="table">
+                        <table class="table table-bordered table-hover">
                             <!-- Table Head -->
                             <thead>
                                 <tr>
@@ -83,13 +83,13 @@
                                             <?php echo $hotel['description'] ?>
                                         </td>
                                         <td>
-                                            <?php echo $hotel['parking'] ?>
+                                            <?php echo ($hotel['parking']) ? 'Disponibile' : 'Non disponibile' ?>
                                         </td>
                                         <td>
                                             <?php echo $hotel['vote'] ?>
                                         </td>
                                         <td>
-                                            <?php echo $hotel['distance_to_center'] ?>
+                                            <?php echo $hotel['distance_to_center']." km " ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
