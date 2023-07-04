@@ -4,21 +4,24 @@
     require __DIR__."/partials/array.php";
 
     // CONTROLLO CHE I VALORI DI GET NON SIANO Null
-    if (isset($_GET['parking'])){
+    if (isset($_GET['parking']) && isset($_GET['vote'])){
 
-        // RECUPERO IL FILTRAGGIO SCELTO DALL'UTENTE
+        // RECUPERO IL FILTRAGGIO DEL PARCHEGGIO SCELTO DALL'UTENTE
         $filter = $_GET['parking'];
-        
-        // CONTROLLO SE L'UTENTE HA SCELTO DI MOSTRARE A SCHERMO SOLO GLI HOTEL CON IL PARCHEGGIO DISPONIBILE
-        if ($filter === "1"){
 
-            // CREO UN ARRAY DOVE INSERIRE I FILTRAGGI
-            $filteredArray = [];
+        // RECUPERO IL FILTRAGGIO PER VOTO SCELTO DALL'UTENTE
+        $vote = $_GET['vote'];
+        
+        // CREO UN ARRAY DOVE INSERIRE I FILTRAGGI
+        $filteredArray = [];
+
+        // L'UTENTE HA UTILIZZATO SOLO IL FILTRAGGIO DEL PARCHEGGIO
+        if ($filter === "1" && $vote === '' || $vote === 0){
 
             // CREO UN CICLO FOR_EACH CHE INSERISCE DENTRO FILTERED_ARRAY SOLTANTO GLI HOTEL CON IL PARCHEGGIO DISPONIBILE
             foreach($hotels as $hotel){
 
-                // CONTROLLO SE L'HOTEL HA IL VALORE PARKING UGUALE A TRUE
+                // CONTROLLO SE L'HOTEL HA PARKING UGUALE A TRUE
                 if($hotel['parking']){
 
                     // INSERISCO DENTRO L'ARRAY FILTRATO, L'ARRAY ASSOCIATIVO DELL'HOTEL
@@ -28,8 +31,39 @@
             
             // SOVRASCRIVO L'ARRAY HOTELS CON IL CONTENUTO DEL FILTERED_ARRAY
             $hotels = $filteredArray;
-        }
 
+        } else if($filter !== "1" && $vote !== '' && $vote !== 0){ // L'UTENTE HA UTILIZZATO SOLO IL FILTRAGGIO DEL VOTO
+
+            // CREO UN CICLO FOR_EACH CHE INSERISCE DENTRO FILTERED_ARRAY SOLTANTO GLI HOTEL CHE HANNO UN VOTO MAGGIORE/UGUALE A QUELLO SCELTO DALL'UTENTE
+            foreach($hotels as $hotel){
+
+                // CONTROLLO SE L'HOTEL HA UN VOTO MAGGIORE/UGUALE A QUELLO SCELTO DALL'UTENTE
+                if($hotel['vote'] >= $vote){
+
+                    // INSERISCO DENTRO L'ARRAY FILTRATO, L'ARRAY ASSOCIATIVO DELL'HOTEL
+                    $filteredArray[] = $hotel;
+                }
+            }
+            
+            // SOVRASCRIVO L'ARRAY HOTELS CON IL CONTENUTO DEL FILTERED_ARRAY
+            $hotels = $filteredArray;
+
+        } else if($filter === "1" && $vote !== '' && $vote !== 0){ // L'UTENTE HA UTILIZZATO ENTRAMBI I FILTRAGGI
+
+            // CREO UN CICLO FOR_EACH CHE INSERISCE DENTRO FILTERED_ARRAY SOLTANTO GLI HOTEL CHE SODDISFANO ENTRAMBI I FILTRAGGI
+            foreach($hotels as $hotel){
+
+                // CONTROLLO SE L'HOTEL HA PARKING UGUALE A TRUE ED HA UN VOTO MAGGIORE/UGUALE A QUELLO SCELTO DALL'UTENTE
+                if($hotel['parking'] && $hotel['vote'] >= $vote){
+
+                    // INSERISCO DENTRO L'ARRAY FILTRATO, L'ARRAY ASSOCIATIVO DELL'HOTEL
+                    $filteredArray[] = $hotel;
+                }
+            }
+            
+            // SOVRASCRIVO L'ARRAY HOTELS CON IL CONTENUTO DEL FILTERED_ARRAY
+            $hotels = $filteredArray;
+        }
     }
 ?>
 
@@ -55,11 +89,13 @@
                     <div class="col-12 mt-5">
                         <!-- Form -->
                         <form action="index.php" method="GET" class="text-center">
-                            <!-- Select Parking -->
-                            <select name="parking" class="form-select mb-5">
+                            <!-- Select Parking Filter -->
+                            <select name="parking" class="form-select">
                                 <option value="0">Tutti gli hotel</option>
                                 <option value="1">Hotel con parcheggio disponibile</option>
                             </select>
+                            <!-- Input Vote Filter -->
+                            <input name="vote" type="number" placeholder="Filtra gli hotel per voto minimo" class="form-control my-5">
                             <!-- Submit Button -->
                             <button type="submit" class="btn btn-primary">Ricerca</button>
                         </form>
