@@ -1,7 +1,7 @@
 <!-- SCRIPT PHP -->
 <?php
     // IMPORTO "ARRAY.PHP"
-    require __DIR__."/partials/array.php";
+    require __DIR__."/partials/vars.php";
 
     // CONTROLLO CHE I VALORI DI GET NON SIANO Null
     if (isset($_GET['parking']) && isset($_GET['vote'])){
